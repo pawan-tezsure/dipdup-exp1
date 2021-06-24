@@ -12,8 +12,8 @@ contracts:
 
 datasources:
     tzkt_staging_mainnet:
-    kind: tzkt
-    url: https://staging.api.tzkt.io
+        kind: tzkt
+        url: https://staging.api.tzkt.io
 
 templates:
     plenty_big_map:
