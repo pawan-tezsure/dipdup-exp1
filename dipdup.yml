@@ -22,7 +22,7 @@ templates:
         handlers:
             - callback: on_balance_update
               contract: <plenty_contract>
-              path: store.balances
+              path: balances
 indexes:
     plenty_big_map_mainnet:
         template: plenty_big_map
