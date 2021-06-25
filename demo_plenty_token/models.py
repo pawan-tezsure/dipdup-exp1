@@ -1,9 +1,6 @@
 from tortoise import Model, fields
 
 
-class ExampleModel(Model):
-    id = fields.IntField(pk=True)
-    ...
-
-    class Meta:
-        table = 'example_models'
+class Holder(Model):
+    holderAddress = fields.CharField(pk=True,max_length=36)
+    balance = fields.BigIntField(null=False)

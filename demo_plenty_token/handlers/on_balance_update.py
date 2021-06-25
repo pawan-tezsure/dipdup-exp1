@@ -10,4 +10,6 @@ async def on_balance_update(
     ctx: HandlerContext,
     balances: BigMapDiff[BalancesKey, BalancesValue],
 ) -> None:
-    ...
+    newHolder, _ = await models.Holder.get_or_create(holderAddress = BalancesKey)
+    newHolder.balance = BalancesValue
+    newHolder.save()
