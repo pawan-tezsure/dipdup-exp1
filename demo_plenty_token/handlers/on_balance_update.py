@@ -12,4 +12,4 @@ async def on_balance_update(
 ) -> None:
     newHolder, _ = await models.Holder.get_or_create(holderAddress = BalancesKey)
     newHolder.balance = BalancesValue.balance
-    newHolder.save()
+    await newHolder.save()
