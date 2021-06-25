@@ -11,6 +11,4 @@ async def on_balance_update(
     balances: BigMapDiff[BalancesKey, BalancesValue],
 ) -> None:
     print(BalancesKey)
-    newHolder, _ = await models.Holder.get_or_create(holderAddress = BalancesKey)
-    newHolder.balance = BalancesValue.balance
-    await newHolder.save()
+    newHolder, _ = await models.Holder.get_or_create(holderAddress = balances.key.__root__,defaults=dict(balance=balances.value.bakance))
