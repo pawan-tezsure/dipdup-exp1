@@ -11,4 +11,4 @@ async def on_balance_update(
     balances: BigMapDiff[BalancesKey, BalancesValue],
 ) -> None:
     finalBalance = Decimal (balances.value.balance) / (10 ** 18)
-    newHolder, _ = await models.Holder.get_or_create(holderAddress = balances.key.__root__,defaults=dict(balance=finalBalance))
+    newHolder, _ = await models.Holder.update_or_create(holderAddress = balances.key.__root__,defaults=dict(balance=finalBalance))
