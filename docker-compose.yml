@@ -1,0 +1,44 @@
+version: "3.3"
+
+services:
+  indexer:
+    build: .
+    depends_on:
+      - db
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - ADMIN_SECRET=RtQ6IrqB77RdyTI4O65nV0a4YuXFopRhDsX8ytfFh32gcBeBs17INlqOEDvtS7rD
+
+  db:
+    image: postgres:13
+    restart: always
+    volumes:
+      - db:/var/lib/postgres/data
+    environment: 
+      - POSTGRES_USER=dipdup
+      - POSTGRES_DB=dipdup
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  hasura:
+    image: hasura/graphql-engine:v1.3.3
+    ports:
+      - 127.0.0.1:42000:8080
+    depends_on:
+      - db
+    restart: always
+    environment:
+      - HASURA_GRAPHQL_DATABASE_URL=postgres://dipdup:postgres@dipdup.cfpixyvr7zmo.ap-south-1.rds.amazonaws.com:5432/dipdup
+      - HASURA_GRAPHQL_ENABLE_CONSOLE=false
+      - HASURA_GRAPHQL_DEV_MODE=false
+      - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log
+      - HASURA_GRAPHQL_ADMIN_SECRET=RtQ6IrqB77RdyTI4O65nV0a4YuXFopRhDsX8ytfFh32gcBeBs17INlqOEDvtS7rD
+      - HASURA_GRAPHQL_UNAUTHORIZED_ROLE=user
+  
+volumes:
+  db:

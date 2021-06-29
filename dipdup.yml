@@ -1,10 +1,6 @@
 spec_version: 1.0
 package: demo_plenty_token
 
-database:
-    kind: sqlite
-    path: demo_plenty_token.sqlite3
-
 contracts:
     plenty_mainnet:
         address: KT1GRSvLoikDsXujKgZPsGLX8k8VvR2Tq95b
@@ -29,3 +25,15 @@ indexes:
         values:
             datasource: tzkt_staging_mainnet
             plenty_contract: plenty_mainnet
+
+database:
+  kind: postgres
+  host: db
+  port: 5432
+  user: dipdup
+  password: ${POSTGRES_PASSWORD}
+  database: dipdup
+
+hasura:
+  url: http://hasura:8080
+  admin_secret: ${HASURA_GRAPHQL_ADMIN_SECRET}
