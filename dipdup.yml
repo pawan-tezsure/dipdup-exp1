@@ -1,14 +1,14 @@
 spec_version: 1.0
-package: demo_plenty_token
+package: demo_fa2_token
 
 database:
     kind: sqlite
-    path: demo_plenty_token.sqlite3
+    path: demo_fa2_token.sqlite3
 
 contracts:
-    plenty_mainnet:
-        address: KT1GRSvLoikDsXujKgZPsGLX8k8VvR2Tq95b
-        typename: plenty
+    fa2_mainnet:
+        address: KT18fp5rcTW7mbWDmzFwjLDUhs5MeJmagDSZ
+        typename: fa2_type
 
 datasources:
     tzkt_staging_mainnet:
@@ -16,16 +16,16 @@ datasources:
         url: https://staging.api.tzkt.io
 
 templates:
-    plenty_big_map:
+    fa2_big_map:
         kind: big_map
         datasource: <datasource>
         handlers:
             - callback: on_balance_update
               contract: <plenty_contract>
-              path: balances
+              path: assets.ledger
 indexes:
-    plenty_big_map_mainnet:
-        template: plenty_big_map
+    fa2_big_map_mainnet:
+        template: fa2_big_map
         values:
             datasource: tzkt_staging_mainnet
-            plenty_contract: plenty_mainnet
+            plenty_contract: fa2_mainnet
