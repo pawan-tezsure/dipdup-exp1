@@ -10,7 +10,7 @@ async def on_balance_update(
     ctx: HandlerContext,
     assets_ledger: BigMapDiff[AssetsLedgerKey, AssetsLedgerValue],
 ) -> None:
-    if(AssetsLedgerKey.nat != 10):
+    if(assets_ledger.key.nat != 10):
         return
-    finalBalance = Decimal (AssetsLedgerValue.nat) / (10 ** 6)
-    newHolder, _ = await models.wLINKHolder.update_or_create(holderAddress = AssetsLedgerKey.nat,defaults=dict(balance=finalBalance))
+    finalBalance = Decimal (assets_ledger.value.__root__) / (10 ** 18)
+    newHolder, _ = await models.wLINKHolder.update_or_create(holderAddress = assets_ledger.key.address,defaults=dict(balance=finalBalance))
